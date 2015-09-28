@@ -58,7 +58,7 @@ class TimerModel {
     /**
         Controls the session category timer depending on the current category.
     
-        :param: currentCategory The current note category.
+        - parameter currentCategory: The current note category.
     */
     func controlTimer(currentCategory: String){
         switch currentCategory {
@@ -107,7 +107,7 @@ class TimerModel {
     /** 
         Start the timer.
     
-        :param: categoryEnum The current category that this timer's end result should be added to.
+        - parameter categoryEnum: The current category that this timer's end result should be added to.
     */
     func startTimer(categoryEnum: Categories){
         self.categoryEnum = categoryEnum
@@ -117,8 +117,8 @@ class TimerModel {
     /** 
         Calculate the ratios of time spent in each of the three categories with respect to the total time spent in the three categories.
     
-        :param: categoryEnum The category to get the percentage ratio for.
-        :returns: The ration of total time spent in the given category as a string with a percent sign prepended.
+        - parameter categoryEnum: The category to get the percentage ratio for.
+        - returns: The ration of total time spent in the given category as a string with a percent sign prepended.
     */
     func calculateRatios(categoryEnum: Categories) -> String {
         
@@ -126,16 +126,16 @@ class TimerModel {
         
         switch categoryEnum {
         case .Setup:
-            var setupPercent: Double = (setupTime! / total) * 100
-            var setupPercentAsString: String = String(format:"%.1f", setupPercent)
+            let setupPercent: Double = (setupTime! / total) * 100
+            let setupPercentAsString: String = String(format:"%.1f", setupPercent)
             return setupPercentAsString + "%"
         case .Test:
-            var testPercent: Double = (testTime! / total) * 100
-            var testPercentAsString: String = String(format:"%.1f", testPercent)
+            let testPercent: Double = (testTime! / total) * 100
+            let testPercentAsString: String = String(format:"%.1f", testPercent)
             return testPercentAsString + "%"
         case .Bug:
-            var bugPercent: Double = (bugTime! / total) * 100
-            var bugPercentAsString: String = String(format:"%.1f", bugPercent)
+            let bugPercent: Double = (bugTime! / total) * 100
+            let bugPercentAsString: String = String(format:"%.1f", bugPercent)
             return bugPercentAsString + "%"
         default:
             return ""        }

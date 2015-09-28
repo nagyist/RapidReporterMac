@@ -32,12 +32,12 @@ class NotesModelTests: XCTestCase {
     }
     
     func testThatNoteIsCreated() {
-        var noteName = notesModel?.openNote(true)
+        let noteName = notesModel?.openNote(true)
         XCTAssert(File.exists(fileIOModel!.getAbsolutePathOfSessionFolder() + noteName!), "Checking that note creation works.")
     }
     
     func testThatPreviousNotesWork() {
-        var testMessage = "This is a test."
+        let testMessage = "This is a test."
         notesModel!.saveMessageNote(testMessage)
         XCTAssert(notesModel!.getPreviousMessageNotes().count != 0, "Checking previous messages has a value.")
         XCTAssert(notesModel!.getPreviousMessageNotes()[0] == testMessage, "Checking value was set correctly.")

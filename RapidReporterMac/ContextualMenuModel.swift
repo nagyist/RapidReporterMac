@@ -22,7 +22,7 @@ class ContextualMenuModel {
     Creates the context menu to be shown when the user right clicks
     on the text field.
     
-    :returns: Returns an `NSMenu` object to be displayed to the user.
+    - returns: Returns an `NSMenu` object to be displayed to the user.
     */
     func createTextFieldContextMenu(notes: [String]) -> NSMenu {
         let menu = NSMenu()
@@ -36,7 +36,7 @@ class ContextualMenuModel {
     Creates the context menu shown when the user right clicks on the window.
     This menu contains '**Session Length**' and '**Open working folder**' options.
     
-    :returns: Returns an `NSMenu` object to be displayed to the user.
+    - returns: Returns an `NSMenu` object to be displayed to the user.
     */
     func createContextMenu() -> NSMenu {
         // Show context menu on right click.
@@ -47,7 +47,7 @@ class ContextualMenuModel {
         
         // Programatically add four options to session length sub menu.
         for (var i = 1; i <= 4; i++) {
-            var minsEntry = NSMenuItem(title: "\(i * 30) mins from now", action: Selector("timeSelector:"), keyEquivalent: "")
+            let minsEntry = NSMenuItem(title: "\(i * 30) mins from now", action: Selector("timeSelector:"), keyEquivalent: "")
             minsEntry.tag = i * 30
             subMenu.addItem(minsEntry)
         }
@@ -58,8 +58,8 @@ class ContextualMenuModel {
     /**
     Displays the supplied menu as a popup to the user.
     
-    :param: menu The menu to be shown to the user.
-    :param: theEvent The even that called this method.
+    - parameter menu: The menu to be shown to the user.
+    - parameter theEvent: The even that called this method.
     */
     func showContextMenu(menu: NSMenu, theEvent: NSEvent, view: NSView){
         NSMenu.popUpContextMenu(menu, withEvent: theEvent, forView: view)

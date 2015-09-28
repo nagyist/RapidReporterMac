@@ -37,14 +37,13 @@ class NotesModel {
     /** 
         This method is used to open either a new or existing RTF note.
     
-        :param: openNewNote A boolean that tells the method to open a new note or not.
-        :returns: The path of the file that was just opened.
+        - parameter openNewNote: A boolean that tells the method to open a new note or not.
+        - returns: The path of the file that was just opened.
     */
     func openNote(openNewNote: Bool) -> String {
         
         let customFormatter = DateFormatterModel()
         let fileNameDate = customFormatter.getFileNameTimeStamp()
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString
         let rapidReporterPath = fileIO!.getAbsolutePathOfSessionFolder()
         
         // Get new file's name.
@@ -74,7 +73,7 @@ class NotesModel {
     /** 
         Duplicates a note file to the path provided. It will either copy the RTF template from the bundle or the last note taken depending on whether or not this is the first note of the session.
     
-        :param: filePath The path that the file should be copied to.
+        - parameter filePath: The path that the file should be copied to.
     */
     private func duplicateNote(filePath: String) {
         
@@ -90,7 +89,7 @@ class NotesModel {
     /** 
         Copies the RTF note template from the application bundle.
     
-        :param: filePath The path to copy the template to.
+        - parameter filePath: The path to copy the template to.
     */
     private func copyTemplate(filePath: String){
         
@@ -101,27 +100,35 @@ class NotesModel {
         
         // Copy file.
         let fileManager = NSFileManager.defaultManager()
-        fileManager.copyItemAtURL(bundleURL!, toURL: NSURL(fileURLWithPath: filePath)!, error: errorPointer)
+        do {
+            try fileManager.copyItemAtURL(bundleURL!, toURL: NSURL(fileURLWithPath: filePath))
+        } catch let error as NSError {
+            errorPointer.memory = error
+        }
         
     }
     
     /** 
         Copies the last note taken this session.
     
-        :param: newNotePath The path that the note should be copied to.
+        - parameter newNotePath: The path that the note should be copied to.
     */
     private func copyLastNote(newNotePath: String){
         let errorPointer: NSErrorPointer = NSErrorPointer()
         
         // Copy file.
         let fileManager = NSFileManager.defaultManager()
-        fileManager.copyItemAtURL(NSURL(fileURLWithPath: lastNotePath!)!, toURL: NSURL(fileURLWithPath: newNotePath)!, error: errorPointer)
+        do {
+            try fileManager.copyItemAtURL(NSURL(fileURLWithPath: lastNotePath!), toURL: NSURL(fileURLWithPath: newNotePath))
+        } catch var error as NSError {
+            errorPointer.memory = error
+        }
     }
     
     /** 
         Gets the last six one line notes input by the user.
     
-        :returns: An array of the last six notes taken by the user.
+        - returns: An array of the last six notes taken by the user.
     */
     func getPreviousMessageNotes() -> [String] {
         return previousNoteMessages
@@ -130,7 +137,7 @@ class NotesModel {
     /** 
         Saves a one line note to the array of previous one line notes.
     
-        :param: messageNote The note to save.
+        - parameter messageNote: The note to save.
     */
     func saveMessageNote(messageNote: String) {
         // If already six stored, removed least recent and append.

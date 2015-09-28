@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4010472A1BB9CFC90050C104 /* ExtendedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401047291BB9CFC90050C104 /* ExtendedTextField.swift */; settings = {ASSET_TAGS = (); }; };
 		403042841B260043002B34BA /* screenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = 403042831B260043002B34BA /* screenshot.png */; };
 		403042871B260139002B34BA /* note.png in Resources */ = {isa = PBXBuildFile; fileRef = 403042861B260139002B34BA /* note.png */; };
 		405ADA561B3812B400FA6BD0 /* FileIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405ADA551B3812B400FA6BD0 /* FileIOTests.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		401047291BB9CFC90050C104 /* ExtendedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedTextField.swift; sourceTree = "<group>"; };
 		403042831B260043002B34BA /* screenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot.png; sourceTree = "<group>"; };
 		403042861B260139002B34BA /* note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = note.png; sourceTree = "<group>"; };
 		405ADA551B3812B400FA6BD0 /* FileIOTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileIOTests.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				409B22871B21B84900D62E85 /* ViewController.swift */,
+				401047291BB9CFC90050C104 /* ExtendedTextField.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -264,7 +267,9 @@
 		409B225F1B21B7CB00D62E85 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Skyscanner;
 				TargetAttributes = {
 					409B22661B21B7CB00D62E85 = {
@@ -324,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40DD67591B26EB1E002C9B84 /* ProgressBarModel.swift in Sources */,
+				4010472A1BB9CFC90050C104 /* ExtendedTextField.swift in Sources */,
 				40DD67551B26D704002C9B84 /* ScreenshotModel.swift in Sources */,
 				4064CE161B3449660057634B /* CONTRIBUTING.md in Sources */,
 				409B22891B21B84900D62E85 /* ViewController.swift in Sources */,
@@ -406,6 +412,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -473,6 +480,7 @@
 				INFOPLIST_FILE = RapidReporterMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.skyscanner.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -485,6 +493,7 @@
 				INFOPLIST_FILE = RapidReporterMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.skyscanner.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -504,6 +513,7 @@
 				);
 				INFOPLIST_FILE = RapidReporterMacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.skyscanner.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RapidReporterMac.app/Contents/MacOS/RapidReporterMac";
 			};
@@ -520,6 +530,7 @@
 				);
 				INFOPLIST_FILE = RapidReporterMacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.skyscanner.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RapidReporterMac.app/Contents/MacOS/RapidReporterMac";
 			};

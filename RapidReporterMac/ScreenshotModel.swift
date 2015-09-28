@@ -24,22 +24,22 @@ class ScreenshotModel {
     /** 
         Takes a screenshot of the screen that the application is currently running on and saves it at `pathToSaveAt`.
     
-        :param: pathToSaveAt The path to save the screenshot to.
-        :param: window The current window of the program.
-        :returns: A boolean indicating whether or not the file was saved.
+        - parameter pathToSaveAt: The path to save the screenshot to.
+        - parameter window: The current window of the program.
+        - returns: A boolean indicating whether or not the file was saved.
     */
     func takeScreenshotOfActiveScreen(pathToSaveAt: String, window: NSWindow) -> Bool {
         
-        var currentScreen = window.screen
-        var screenDetails: NSDictionary = currentScreen!.deviceDescription
-        var screenID: AnyObject? = screenDetails.objectForKey("NSScreenNumber")
-        var screenIDInt: Int = screenID as! Int
-        var screenIDUint32: UInt32 = UInt32(screenIDInt)
+        let currentScreen = window.screen
+        let screenDetails: NSDictionary = currentScreen!.deviceDescription
+        let screenID: AnyObject? = screenDetails.objectForKey("NSScreenNumber")
+        let screenIDInt: Int = screenID as! Int
+        let screenIDUint32: UInt32 = UInt32(screenIDInt)
         
-        var imageRef = CGDisplayCreateImage(CGDirectDisplayID(screenIDUint32)).takeUnretainedValue()
-        var bitmapRepresentation = NSBitmapImageRep(CGImage: imageRef)
-        var fileType: NSBitmapImageFileType = .NSPNGFileType
-        var temp: [NSObject: AnyObject] = [NSObject: AnyObject]()
+        let imageRef = CGDisplayCreateImage(CGDirectDisplayID(screenIDUint32))
+        let bitmapRepresentation = NSBitmapImageRep(CGImage: imageRef!)
+        let fileType: NSBitmapImageFileType = .NSPNGFileType
+        let temp: [String: AnyObject] = [String: AnyObject]()
         
         // Convert bitmap to data
         let data: NSData? = bitmapRepresentation.representationUsingType(fileType, properties: temp) as NSData?
@@ -53,8 +53,8 @@ class ScreenshotModel {
     /** 
         Launches OS X's screencapture utility to allow a user to take a screenshot of a window or select an area.
     
-        :param: pathToSaveAt The path to save the screenshot to.
-        :returns: A boolean indicating whether or not the file was saved.
+        - parameter pathToSaveAt: The path to save the screenshot to.
+        - returns: A boolean indicating whether or not the file was saved.
     */
     func takeScreenshotOfSelection(pathToSaveAt: String) -> Bool {
         
@@ -70,7 +70,7 @@ class ScreenshotModel {
     /** 
         Get the number of screenshots taken so far in this session.
     
-        :returns: The number of screenshots taken in the current session so far.
+        - returns: The number of screenshots taken in the current session so far.
     */
     func getNumberOfScreenshotsTaken() -> Int {
         return screensTakenThisSession

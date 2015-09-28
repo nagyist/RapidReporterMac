@@ -37,22 +37,26 @@ class ProgressBarModel {
     
     /// Starts a background process that periodically updates the progress bar's value.
     func startProgressBar() {
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-        dispatch_async(backgroundQueue, {
-            var secondsElapsed =  0.0
-            while (true){
-                self.bar.doubleValue = Double(secondsElapsed)
-                secondsElapsed = secondsElapsed + self.secsPerUpdate
-                NSThread.sleepForTimeInterval(self.secsPerUpdate)
-            }
-        })
+        if #available(OSX 10.10, *) {
+            let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+            let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+            dispatch_async(backgroundQueue, {
+                var secondsElapsed =  0.0
+                while (true){
+                    self.bar.doubleValue = Double(secondsElapsed)
+                    secondsElapsed = secondsElapsed + self.secsPerUpdate
+                    NSThread.sleepForTimeInterval(self.secsPerUpdate)
+                }
+            })
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     /** 
         Gets the maximum value of the progress bar.
     
-        :returns: The maximum value of the progress bar as a `Double` in **minutes**.
+        - returns: The maximum value of the progress bar as a `Double` in **minutes**.
     */
     func getBarMax() -> Double {
         return bar.maxValue / 60
@@ -61,7 +65,7 @@ class ProgressBarModel {
     /** 
         Set the maximum value of the progress bar.
     
-        :param: maxInMins Takes an integer representation of the maximum in **minutes**.
+        - parameter maxInMins: Takes an integer representation of the maximum in **minutes**.
     */
     func setBarMax(maxInMins: Int) {
         bar.maxValue = Double(maxInMins * noOfSecsInAMin)

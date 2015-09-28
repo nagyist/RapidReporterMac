@@ -34,7 +34,7 @@ class ContextualMenuModelTests: XCTestCase {
     }
     
     func testThatTextFieldContextMenuIsCorrect(){
-        var menu: NSMenu = contextualMenuModel!.createTextFieldContextMenu(["This", "is", "a", "test"])
+        let menu: NSMenu = contextualMenuModel!.createTextFieldContextMenu(["This", "is", "a", "test"])
         
         XCTAssert(menu.numberOfItems == 4, "Checking number of menu items in context menu.")
         XCTAssert(menu.itemAtIndex(2)?.title == "a", "Check that menu items are set properly.")
@@ -42,9 +42,9 @@ class ContextualMenuModelTests: XCTestCase {
     
     // Currently can't test anything that uses app delegate using to casting problem.
     func DISABLED_testThatTextFieldMenuIsCorrect(){
-        var textField = NSTextField()
+        let textField = NSTextField()
         
-        var menu: NSMenu = contextualMenuModel!.createTextFieldContextMenu(["This", "is", "a", "test"])
+        let menu: NSMenu = contextualMenuModel!.createTextFieldContextMenu(["This", "is", "a", "test"])
         contextualMenuModel!.setFieldEditorMenu(textField, notes: ["This", "is", "a", "test"])
         
         XCTAssert(textField.menu == menu, "Checking number of menu items in context menu.")

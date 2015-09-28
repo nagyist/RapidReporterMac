@@ -41,7 +41,7 @@ class FileIOTests: XCTestCase {
     
     func testFolderCreation() {
         fileIOModel!.createFolder("testFolder")
-        var filePath = fileIOModel!.getAbsolutePathOfSessionFolder()
+        let filePath = fileIOModel!.getAbsolutePathOfSessionFolder()
     
         XCTAssert(File.exists(filePath))
     }

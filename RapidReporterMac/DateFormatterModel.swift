@@ -28,7 +28,7 @@ class DateFormatterModel {
     /** 
         This constructor is used to initialise the formatter with a custom format.
     
-        :param: format The format to use e.g. **dd/MM/yyyy HH:mm:ss**
+        - parameter format: The format to use e.g. **dd/MM/yyyy HH:mm:ss**
     */
     init (format: String){
         formatter = NSDateFormatter()
@@ -38,7 +38,7 @@ class DateFormatterModel {
     /** 
         Gets the date and time when this function was called and returns it as a formatted string.
     
-        :returns: The current date and time in the format **dd/MM/yyyy HH:mm:ss**
+        - returns: The current date and time in the format **dd/MM/yyyy HH:mm:ss**
     */
     func getFormattedTimestamp() -> String {
         return formatter.stringFromDate(NSDate())
@@ -47,7 +47,7 @@ class DateFormatterModel {
     /** 
         Gets the date and time of when this function was called and returns it as a formatted string used in the naming of files and folders.
     
-        :returns: The current date and time in the format **yyyyMMdd_HHmmss**
+        - returns: The current date and time in the format **yyyyMMdd_HHmmss**
     */
     func getFileNameTimeStamp() -> String {
         formatter.dateFormat = "yyyyMMdd_HHmmss"
@@ -57,14 +57,14 @@ class DateFormatterModel {
     /**  
         Formats a time interval in **seconds** into a time stamp comprised of hours, minutes, and seconds. This method is used to get the duration displayed at the end of each log.
     
-        :param: timeInterval An `NSTimeInterval` to convert.
-        :returns: A string representation of the time interval in the format **HH:mm:ss**
+        - parameter timeInterval: An `NSTimeInterval` to convert.
+        - returns: A string representation of the time interval in the format **HH:mm:ss**
     */
     func formatTimeInterval(timeInterval: NSTimeInterval) -> String {
         
         var seconds = Int(round(timeInterval))
         var minutes = Int(floor(Double(seconds) / 60))
-        var hours = Int(floor(Double(minutes) / 60))
+        let hours = Int(floor(Double(minutes) / 60))
         
         minutes = Int(minutes % 60)
         seconds = Int(seconds % 60)
@@ -81,8 +81,8 @@ class DateFormatterModel {
     /** 
         Adds a leading zero to any single digit integer values to make it two digits. If the integer already has two digits, it returns it as a string.
     
-        :param: intToPad The integer value to pad with a zero.
-        :returns: A string representation of the argument padded with a zero if necessary.
+        - parameter intToPad: The integer value to pad with a zero.
+        - returns: A string representation of the argument padded with a zero if necessary.
     */
     func padWithZero(intToPad: Int) -> String {
         if (intToPad < 10) {

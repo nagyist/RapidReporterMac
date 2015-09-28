@@ -29,7 +29,7 @@ class FileIOModel {
     // Constructor
     init (reporterName: String) {
         self.reporterName = reporterName
-        documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as? NSString
+        documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
         checkDocumentsFolderExists(documentsPath)
     }
     
@@ -49,11 +49,11 @@ class FileIOModel {
     /**
         Checks for the existence of the documents folder. Raises an alert if not, and will close the program whent the user clicks OK.
     
-        :param: path The path to the documents folder.
+        - parameter path: The path to the documents folder.
     */
     func checkDocumentsFolderExists(path: NSString?){
         if (path == nil) {
-            var alert = NSAlert()
+            let alert = NSAlert()
             alert.messageText = "'Documents' folder does not exist."
             alert.alertStyle = NSAlertStyle.CriticalAlertStyle
             alert.informativeText = "Please create a 'Documents' folder in your user directory and restart the application."
@@ -65,38 +65,30 @@ class FileIOModel {
     /** 
         Replaces any characters in the user input that could break the CSV file format used for the logs.
     
-        :param: userInput The user input string to remove potentially dangerous characters from.
-        :returns: The user's input with any dangerous characters replaced with suitable substitutes.
+        - parameter userInput: The user input string to remove potentially dangerous characters from.
+        - returns: The user's input with any dangerous characters replaced with suitable substitutes.
     */
-    func sanitiseUserInput(userInput: String) -> String {
+    func sanitiseUserInput(var userInput: String) -> String {
         // Iterates over each char in the input and replaces , or ".
-        let sanitisedInput = String(map(userInput.generate()) {
-            switch $0 {
-                case ",":
-                    return ";"
-                case "\"":
-                    return "'"
-                default:
-                    return $0
-            }
-        })
-        return sanitisedInput
+        userInput = userInput.stringByReplacingOccurrencesOfString(",", withString: ";")
+        userInput = userInput.stringByReplacingOccurrencesOfString("\"", withString: "'")
+        return userInput
     }
     
     /** 
         Creates a new entry in the current session's log file using the supplied information.
     
-        :param: currentCategory The current category of note the user has selected e.g. Setup, Test, Bug, etc.
-        :param: textToWrite The text that the user has input.
-        :param: screenshotPath The path to the most recently taken screenshot file.
-        :param: rtfNotePath The path to the most recently saved RTF note.
+        - parameter currentCategory: The current category of note the user has selected e.g. Setup, Test, Bug, etc.
+        - parameter textToWrite: The text that the user has input.
+        - parameter screenshotPath: The path to the most recently taken screenshot file.
+        - parameter rtfNotePath: The path to the most recently saved RTF note.
     */
     func logToFile(currentCategory: String, textToWrite: String, screenshotPath: String?, rtfNotePath: String?) {
                                 
-        var cleanUserInput = sanitiseUserInput(textToWrite)
+        let cleanUserInput = sanitiseUserInput(textToWrite)
                                 
         // Construct the information that will be logged.
-        var formatter = DateFormatterModel()
+        let formatter = DateFormatterModel()
         var infoToLog = formatter.getFormattedTimestamp() + ","
         infoToLog = infoToLog + reporterName! + ","
         infoToLog = infoToLog + currentCategory + ","
@@ -116,21 +108,26 @@ class FileIOModel {
     /** 
         Creates a new folder for the program to save to.
     
-        :param: formattedDate The formatted date to be used as the folder's name.
-        :returns: A boolean value representing whether or not the folder was successfully created.
+        - parameter formattedDate: The formatted date to be used as the folder's name.
+        - returns: A boolean value representing whether or not the folder was successfully created.
     */
     func createFolder(formattedDate: String) -> Bool {
         sessionFolderName += (formattedDate + "/")
         let folderUrl = String(documentsPath!) + sessionFolderName
         var err: NSErrorPointer = nil
-        return NSFileManager().createDirectoryAtPath(folderUrl, withIntermediateDirectories: true, attributes: nil, error: err)
+        do {
+            try NSFileManager().createDirectoryAtPath(folderUrl, withIntermediateDirectories: true, attributes: nil)
+            return true
+        } catch _ {
+            return false
+        }
     }
     
     /** 
         Creates a new file in the current session's folder with the necessary CSV headers.
     
-        :param: fileName The name of the file to be created.
-        :param: header The CSV column headers to be written to the file upon creation.
+        - parameter fileName: The name of the file to be created.
+        - parameter header: The CSV column headers to be written to the file upon creation.
     */
     private func createFileWithCSVHeader(logFilePath: String, header: String){
         File.write(self.logFilePath!, content: header, encoding: NSUTF8StringEncoding)
@@ -139,7 +136,7 @@ class FileIOModel {
     /** 
         Initialises a new log file for this session by creating a log file and writing the CSV column headers, the version of the program, the reporter's name, and the session's charter.
     
-        :param: charter The new session's charter.
+        - parameter charter: The new session's charter.
     */
     func initialiseLog(charter: String){
         logFilePath = documentsPath?.stringByAppendingString(sessionFolderName + makeLogFileName())
@@ -159,8 +156,8 @@ class FileIOModel {
     /** 
         Adds quotation marks to a given string.
     
-        :param: text The string to add quotation marks to.
-        :returns: The string with quotation marks added to it.
+        - parameter text: The string to add quotation marks to.
+        - returns: The string with quotation marks added to it.
     */
     func addQuotationMarks(text: String) -> String {
         return "\"" + text + "\""
@@ -169,21 +166,21 @@ class FileIOModel {
     /** 
         Makes a file name that is used as the name for a screenshot file.
     
-        :param: noOfScreenshotsThisSession The number of screenshots taken during this session so far. This is prepended to the file name.
-        :returns: The screenshot file name.
+        - parameter noOfScreenshotsThisSession: The number of screenshots taken during this session so far. This is prepended to the file name.
+        - returns: The screenshot file name.
     */
     func makeScreenshotFileName(noOfScreenshotsThisSession: Int) -> String {
-        var formatter = DateFormatterModel()
+        let formatter = DateFormatterModel()
         return String(noOfScreenshotsThisSession) + "_" + formatter.getFileNameTimeStamp() + ".png"
     }
     
     /**
         Makes a file name that is used as the name for a log file.
     
-        :returns: A file name with a `.csv` file extension.
+        - returns: A file name with a `.csv` file extension.
     */
     func makeLogFileName() -> String {
-        var formatter = DateFormatterModel()
+        let formatter = DateFormatterModel()
         return formatter.getFileNameTimeStamp() + ".csv"
     }
     

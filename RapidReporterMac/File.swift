@@ -23,23 +23,28 @@ class File {
     
     class func read (path: String, encoding: NSStringEncoding = NSUTF8StringEncoding) -> String? {
         if File.exists(path) {
-            return String(contentsOfFile: path, encoding: encoding, error: nil)
+            return try? String(contentsOfFile: path, encoding: encoding)
         }
         return nil
     }
     
     class func write (path: String, content: String, encoding: NSStringEncoding = NSUTF8StringEncoding) -> Bool {
-        return content.writeToFile(path, atomically: true, encoding: encoding, error: nil)
+        do {
+            try content.writeToFile(path, atomically: true, encoding: encoding)
+            return true
+        } catch _ {
+            return false
+        }
     }
     
     class func appendToFile(path: String, content: String) {
-        var newLineAndContent = "\n" + content
+        let newLineAndContent = "\n" + content
         if let outputStream = NSOutputStream(toFileAtPath: path, append: true) {
             outputStream.open()
             outputStream.write(newLineAndContent, maxLength:newLineAndContent.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
             outputStream.close()
         } else {
-            println("Unable to open file")
+            print("Unable to open file")
         }
     }
 }

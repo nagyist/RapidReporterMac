@@ -68,10 +68,10 @@ class SessionModel {
     /**
         Ends the testing session.
     
-        :returns: A string representation of the duration of the session in the format **HH:mm:ss**
+        - returns: A string representation of the duration of the session in the format **HH:mm:ss**
     */
     func endSession() -> String {
-        var formatter = DateFormatterModel()
+        let formatter = DateFormatterModel()
         return formatter.formatTimeInterval(NSDate().timeIntervalSinceDate(sessionStart!))
     }
     

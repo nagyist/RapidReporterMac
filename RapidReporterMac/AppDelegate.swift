@@ -51,24 +51,28 @@ public class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         window.setContentSize(NSSize(width: windowWidth, height: windowHeight))
         window.minSize = NSSize(width: windowWidth, height: windowHeight + menuHeight)
         window.maxSize = NSSize(width: 1920, height: windowHeight + menuHeight)
-        window.contentView.addSubview(masterViewController.view)
-        window.level = Int(CGWindowLevelForKey(Int32(kCGScreenSaverWindowLevelKey)))
+        window.contentView!.addSubview(masterViewController.view)
+        window.level = Int(CGWindowLevelForKey(CGWindowLevelKey.ScreenSaverWindowLevelKey))
         window.backgroundColor = NSColor(red: 0.96, green: 0.86, blue: 0.0, alpha: 1.0)
         window.center()
         
         // Sets view constraints.
-        masterViewController.view.frame = (window.contentView as! NSView).bounds
+        masterViewController.view.frame = (window.contentView! as NSView).bounds
         masterViewController.view.translatesAutoresizingMaskIntoConstraints = false
         let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[subView]|",
-            options: NSLayoutFormatOptions(0),
+            options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
             views: ["subView" : masterViewController.view])
         let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[subView]|",
-            options: NSLayoutFormatOptions(0),
+            options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
             views: ["subView" : masterViewController.view])
         
-        NSLayoutConstraint.activateConstraints(verticalConstraints + horizontalConstraints)
+        if #available(OSX 10.10, *) {
+            NSLayoutConstraint.activateConstraints(verticalConstraints + horizontalConstraints)
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     public func applicationShouldTerminate(sender: NSApplication) -> NSApplicationTerminateReply {
