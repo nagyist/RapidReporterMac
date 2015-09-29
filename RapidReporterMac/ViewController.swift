@@ -376,4 +376,14 @@ extension ViewController: NSTextFieldDelegate {
         return false
     }
     
+    override func viewDidAppear() {
+        if #available(OSX 10.10, *) {
+            super.viewDidAppear()
+        } else {
+            // Fallback on earlier versions
+        }
+        let ver: String = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
+        self.view.window!.title = "RapidReporterMac v" + ver
+    }
+    
 }
