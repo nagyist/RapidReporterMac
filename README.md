@@ -2,7 +2,7 @@
 
 Rapid Reporter for Mac is a copy of the testing software originally written by Shmuel Gershon for Windows. The documentation for the original version can be found [here](http://testing.gershon.info/reporter/).
 
-The Mac version requires you to be running OS X 10.10 or above.
+The Mac version requires you to be running OS X 10.9 or above.
 
 ## Installation
 
